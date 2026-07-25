@@ -4,7 +4,7 @@
       "port": 8080,
       "protocol": "vless",
       "settings": {
-        "clients": [{"id": "UUID_PLACEHOLDER"}],
+        "clients": [{"id": "80ac4983-7d64-46ba-9365-0b801e57853d"}],
         "decryption": "none"
       },
       "streamSettings": {
