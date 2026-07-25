@@ -18,8 +18,10 @@ COPY config.json /etc/xray/config.json
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN wget -q https://github.com/VergeInc/wireguard-go/releases/download/v0.0.20230223/wireguard-go-linux-amd64 -O /usr/local/bin/wireguard-go && \
-    chmod +x /usr/local/bin/wireguard-go
+RUN curl -sL $(curl -sL https://api.github.com/repos/P3TERX/wireguard-go-builder/releases/latest | jq -r '.assets[] | select(.name | test("linux-amd64.tar.gz$")) | .browser_download_url') -o /tmp/wireguard-go.tar.gz && \
+    tar xzf /tmp/wireguard-go.tar.gz -C /usr/local/bin/ wireguard-go && \
+    chmod +x /usr/local/bin/wireguard-go && \
+    rm /tmp/wireguard-go.tar.gz
 
 ENV UUID=UUID_PLACEHOLDER
 ENV TOKEN=
