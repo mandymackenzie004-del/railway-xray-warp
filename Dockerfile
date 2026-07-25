@@ -8,7 +8,7 @@ RUN mkdir -p /usr/local/share/xray && \
     unzip Xray-linux-64.zip -d /usr/local/bin/ && \
     rm Xray-linux-64.zip
 
-RUN wget -q https://github.com/ViRb3/wgcf/releases/latest/download/wgcf_2.2.22_linux_amd64 -O /usr/local/bin/wgcf && \
+RUN curl -sL $(curl -sL https://api.github.com/repos/ViRb3/wgcf/releases/latest | jq -r '.assets[] | select(.name | test("linux_amd64$")) | .browser_download_url') -o /usr/local/bin/wgcf && \
     chmod +x /usr/local/bin/wgcf
 
 RUN wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O /usr/local/bin/cloudflared && \
