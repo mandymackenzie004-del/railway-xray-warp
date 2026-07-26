@@ -32,12 +32,6 @@ echo "=== WARP 启动完成 ==="
 echo "=== WARP 出口 IP ==="
 curl -s --connect-timeout 10 https://cloudflare.com/cdn-cgi/trace 2>/dev/null | head -5 || echo "无法获取 IP"
 
-# 启动 Xray
+# 启动 Xray 作为主进程
 echo "=== 启动 Xray ==="
-xray run -c /etc/xray/config.json &
-
-sleep 2
-
-# 启动 Cloudflare Tunnel
-echo "=== 启动 Cloudflare Tunnel ==="
-exec cloudflared tunnel --no-autoupdate run --token $TOKEN
+exec xray run -c /etc/xray/config.json
